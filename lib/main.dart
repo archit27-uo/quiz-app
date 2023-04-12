@@ -24,24 +24,41 @@ class quizz extends StatefulWidget {
 }
 
 class _quizzState extends State<quizz> {
+  List<Icon> score = [
+
+  ];
+  int questionNumber = 0;
+  List<String> question =[
+    'The liver is the largest internal organ in the human body.',
+    'The human eyes can observe 10 million different colors.',
+    'The human skin regenerates once in two weeks.',
+  ];
   @override
   Widget build(BuildContext context) {
     return Column(
-     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+     mainAxisAlignment: MainAxisAlignment.start,
       children: [
         const SizedBox(
-
+          height: 250,
         ),
-        const Text(
-            "This is the quiz question",
+        if(questionNumber<3)...[
+        Text(
+
+          question.elementAt(questionNumber),
+
+
         style: TextStyle(
           color: Colors.white,
           fontSize: 30,
         ),
         ),
+    ],
         // const SizedBox(
         //   height: 200,
         // ),
+        SizedBox(
+          height: 150,
+        ),
         Row(
 
           children: [
@@ -53,7 +70,18 @@ class _quizzState extends State<quizz> {
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 10),
                   ),
-                  onPressed: (){},
+                  onPressed: (){
+                    setState(() {
+                      questionNumber++;
+                      score.add(
+                        const Icon(
+                          Icons.check,
+                          color: Colors.green,
+                        ),
+                      );
+                    });
+
+                  },
                   child: Text("TRUE")
               ),
             ),
@@ -65,11 +93,24 @@ class _quizzState extends State<quizz> {
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 10),
                   ),
-                  onPressed: (){},
+                  onPressed: (){
+                    setState(() {
+                      questionNumber++;
+                      score.add(
+                        const Icon(
+                          Icons.close,
+                          color: Colors.red,
+                        ),
+                      );
+                    });
+                  },
                   child: Text("FALSE")
               ),
             ),
           ],
+        ),
+        Row(
+          children: score,
         )
       ],
     );
