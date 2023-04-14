@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'quiz_base.dart';
 
 void main() {
   return runApp(
@@ -27,12 +28,20 @@ class _quizzState extends State<quizz> {
   List<Icon> score = [
 
   ];
+  QuizzBase quizzBase = new QuizzBase();
   int questionNumber = 0;
-  List<String> question =[
-    'The liver is the largest internal organ in the human body.',
-    'The human eyes can observe 10 million different colors.',
-    'The human skin regenerates once in two weeks.',
-  ];
+  // List<String> question =[
+  //   'The liver is the largest internal organ in the human body.',
+  //   'The human eyes can observe 10 million different colors.',
+  //   'The human skin regenerates once in two weeks.',
+  // ];
+  //
+  // List<bool> answer = [
+  //   false,
+  //   true,
+  //   false
+  // ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,10 +50,10 @@ class _quizzState extends State<quizz> {
         const SizedBox(
           height: 250,
         ),
-        if(questionNumber<3)...[
+        if(questionNumber<13)...[
         Text(
 
-          question.elementAt(questionNumber),
+          quizzBase.questionBase.elementAt(questionNumber).questionText,
 
 
         style: TextStyle(
@@ -72,13 +81,26 @@ class _quizzState extends State<quizz> {
                   ),
                   onPressed: (){
                     setState(() {
+
+                      if(quizzBase.questionBase[questionNumber].questionAnswer){
+                        score.add(
+                          const Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          ),
+
+                        );
+                      }
+                      else{
+
+                        score.add(
+                            const Icon(
+                              Icons.close,
+                              color: Colors.red,
+                            ),
+                        );
+                      }
                       questionNumber++;
-                      score.add(
-                        const Icon(
-                          Icons.check,
-                          color: Colors.green,
-                        ),
-                      );
                     });
 
                   },
@@ -95,13 +117,26 @@ class _quizzState extends State<quizz> {
                   ),
                   onPressed: (){
                     setState(() {
+
+                      if(quizzBase.questionBase[questionNumber].questionAnswer){
+                        score.add(
+                          const Icon(
+                            Icons.close,
+                            color: Colors.red,
+                          ),
+                        );
+                      }
+                      else{
+
+                        score.add(
+                            const Icon(
+                              Icons.check,
+                              color: Colors.green,
+                            ),
+                        );
+
+                      }
                       questionNumber++;
-                      score.add(
-                        const Icon(
-                          Icons.close,
-                          color: Colors.red,
-                        ),
-                      );
                     });
                   },
                   child: Text("FALSE")
