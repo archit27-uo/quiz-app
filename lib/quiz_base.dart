@@ -1,7 +1,9 @@
 import 'question.dart';
+
+
 class QuizzBase{
 
-  List<Question> questionBase = [
+  final List<Question> _questionBase = [
     Question(a:'The liver is the largest internal organ in the human body.', b:false),
     Question(a:'The human eyes can observe 10 million different colors.',b:true),
     Question(a:'The human skin regenerates once in two weeks.',b:false),
@@ -17,5 +19,28 @@ class QuizzBase{
     Question(a: "Every country in the world has a rectangular flag", b: false)
     
   ];
+  int _questionNumber = 0;
+  String getQuestion() {
+    return _questionBase[_questionNumber].questionText;
+  }
+  bool getAnswer() {
+    return _questionBase[_questionNumber].questionAnswer;
+  }
+  void questionIncrement(){
+    if(_questionNumber<_questionBase.length-1){
+      _questionNumber=_questionNumber+1;
+    }
 
+  }
+  int getLength(){
+    return _questionBase.length;
+  }
+  // bool hasNextQus(){
+  //   if(_questionNumber>_questionBase.length-1){
+  //     return false;
+  //   }
+  //   else {
+  //     return true;
+  //   }
+  // }
 }

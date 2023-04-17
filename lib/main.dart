@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'quiz_base.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() {
   return runApp(
@@ -25,11 +26,56 @@ class quizz extends StatefulWidget {
 }
 
 class _quizzState extends State<quizz> {
+  QuizzBase quizzBase = new QuizzBase();
+  int counter =0;
+  int scored = 0;
+  scorePrinter(bool givenAnswer){
+    if(counter<quizzBase.getLength()){
+      if(quizzBase.getAnswer()==givenAnswer){
+        scored++;
+        score.add(
+          const Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+      }
+      else{
+        score.add(
+          const Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+    }
+    else{
+      Alert(
+              context: context,
+              type: AlertType.success,
+              title: "Completed",
+              desc: "All question has been answered\nYour Score is $scored",
+              buttons: [
+                DialogButton(
+                  child: Text(
+                    "Close",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                  width: 120,
+                )
+              ],
+            ).show();
+
+          }
+
+  counter++;
+  }
   List<Icon> score = [
 
   ];
-  QuizzBase quizzBase = new QuizzBase();
-  int questionNumber = 0;
+
+  //int questionNumber = 0;
   // List<String> question =[
   //   'The liver is the largest internal organ in the human body.',
   //   'The human eyes can observe 10 million different colors.',
@@ -50,18 +96,17 @@ class _quizzState extends State<quizz> {
         const SizedBox(
           height: 250,
         ),
-        if(questionNumber<13)...[
+
         Text(
 
-          quizzBase.questionBase.elementAt(questionNumber).questionText,
-
+          quizzBase.getQuestion(),
 
         style: TextStyle(
           color: Colors.white,
           fontSize: 30,
         ),
         ),
-    ],
+
         // const SizedBox(
         //   height: 200,
         // ),
@@ -81,26 +126,26 @@ class _quizzState extends State<quizz> {
                   ),
                   onPressed: (){
                     setState(() {
-
-                      if(quizzBase.questionBase[questionNumber].questionAnswer){
-                        score.add(
-                          const Icon(
-                            Icons.check,
-                            color: Colors.green,
-                          ),
-
-                        );
-                      }
-                      else{
-
-                        score.add(
-                            const Icon(
-                              Icons.close,
-                              color: Colors.red,
-                            ),
-                        );
-                      }
-                      questionNumber++;
+                      scorePrinter(true);
+                      // if(quizzBase.getAnswer()){
+                      //   score.add(
+                      //     const Icon(
+                      //       Icons.check,
+                      //       color: Colors.green,
+                      //     ),
+                      //
+                      //   );
+                      // }
+                      // else{
+                      //
+                      //   score.add(
+                      //       const Icon(
+                      //         Icons.close,
+                      //         color: Colors.red,
+                      //       ),
+                      //   );
+                      // }
+                      quizzBase.questionIncrement();
                     });
 
                   },
@@ -116,27 +161,48 @@ class _quizzState extends State<quizz> {
                     padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 10),
                   ),
                   onPressed: (){
+
                     setState(() {
-
-                      if(quizzBase.questionBase[questionNumber].questionAnswer){
-                        score.add(
-                          const Icon(
-                            Icons.close,
-                            color: Colors.red,
-                          ),
-                        );
-                      }
-                      else{
-
-                        score.add(
-                            const Icon(
-                              Icons.check,
-                              color: Colors.green,
-                            ),
-                        );
-
-                      }
-                      questionNumber++;
+                      scorePrinter(false);
+                      // if(quizzBase.hasNextQus()){
+                      //   if(quizzBase.getAnswer()){
+                      //     score.add(
+                      //       const Icon(
+                      //         Icons.close,
+                      //         color: Colors.red,
+                      //       ),
+                      //     );
+                      //   }
+                      //   else{
+                      //
+                      //     score.add(
+                      //       const Icon(
+                      //         Icons.check,
+                      //         color: Colors.green,
+                      //       ),
+                      //     );
+                      //   }
+                      // }
+                      // else{
+                      //   Alert(
+                      //     context: context,
+                      //     type: AlertType.error,
+                      //     title: "Completed",
+                      //     desc: "All question has been answered",
+                      //     buttons: [
+                      //       DialogButton(
+                      //         child: Text(
+                      //           "Close",
+                      //           style: TextStyle(color: Colors.white, fontSize: 20),
+                      //         ),
+                      //         onPressed: () => Navigator.pop(context),
+                      //         width: 120,
+                      //       )
+                      //     ],
+                      //   ).show();
+                      //
+                      // }
+                      quizzBase.questionIncrement();
                     });
                   },
                   child: Text("FALSE")
