@@ -11,7 +11,7 @@ The True/False Quiz App is an interactive tool that allows users to test their k
 - **Educational:** Learn interesting facts and expand your knowledge while having fun.
 
 
-##Screenshot 
+## Screenshot 
 
 
 ![Screenshot (245)](https://github.com/archit27-uo/quiz-app/assets/75472988/09731910-97f4-4093-b130-602cf4e013ac)
